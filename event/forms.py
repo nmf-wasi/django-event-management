@@ -1,5 +1,5 @@
 from django import forms
-from event.models import Event, Participant
+from event.models import Event, Participant, EventDetails
 
 
 class CustomTimeInput(forms.TimeInput):
@@ -20,9 +20,7 @@ class StyleClassMixin:
             elif isinstance(field.widget, forms.Textarea):
                 field.widget.attrs.update(
                     {
-                        "class": f"{self.default_classes} w-full ",
-                        "placeholder": f"Enter event description ",
-                    }
+                        "class": f"{self.default_classes} w-full ",                    }
                 )
             elif isinstance(field.widget, forms.SelectDateWidget):
                 field.widget.attrs.update(
@@ -63,13 +61,37 @@ class EventForm(StyleClassMixin, forms.ModelForm):
             ),
             "time": CustomTimeInput(
                 attrs={
-                    "class": "p-2 rounded-lg bg-gray-800 my-2 text-blue-300",
+                    "class": "h-5 p-2 rounded-lg bg-gray-800 my-2 text-blue-300",
                 },
                 format="%H:%M",
             ),
             "location": forms.TextInput(
                 attrs={
+                    "class":"h-10",
                     "placeholder": "Enter event location",
+                }
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.applyStyles()
+
+
+class EventDetailsForm(StyleClassMixin, forms.ModelForm):
+    class Meta:
+        model = EventDetails
+        fields = ["notes", "livestream_url", "speakers"]
+        widgets = {
+            "livestream_url": forms.TextInput(
+                attrs={
+                    "class": "w-full text-blue-300 bg-gray-800 p-2 my-2 shadow-sm border-1 rounded-lg",
+                    "placeholder": "Enter URL",
+                }
+            ),
+            "speakers": forms.Textarea(
+                attrs={
+                    "placeholder": "Enter speakers' names",
                 }
             ),
         }

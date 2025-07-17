@@ -14,7 +14,10 @@
                     Event <span class="text-rose-500"> Management</span>
                 </h1>
                 <div class="navButtons hidden lg:flex gap-5">
-                    <button
+                   
+                    {% if not is_organizer %}
+                    <a
+                    href="{% url "organizer_dashboard" %}"
                         class="px-2 oy-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex justify-center gap-2 items-center"
                     >
                         <span
@@ -30,12 +33,36 @@
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                     d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z"
-                                />
-                            </svg> </span
-                        >Participants
-                    </button>
-                    <button
-                        class="px-2 oy-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center"
+                                /></svg></span
+                        >Organizer Dashboard
+                    </a>
+                    
+                    {% endif %}
+                    
+                    {% if is_organizer %}
+                    <a
+                        href="{% url "participants_dashboard" %}"
+                        class="px-2 oy-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex justify-center gap-2 items-center"
+                    >
+                        <span
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-6"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z"
+                                /></svg></span
+                        >Participant Dashboard
+                    </a>
+                    <a
+                        href="{% url 'organizer_dashboard' %}?type=ongoing"
+                        class="px-2 py-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center hover:cursor-pointer"
                     >
                         <span
                             ><svg
@@ -52,9 +79,10 @@
                                     d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
                                 />
                             </svg> </span
-                        >Upcomming
-                    </button>
-                    <button
+                        >Today's Event
+                    </a>
+                    <a
+                        href="{% url 'createEvent' %}"
                         class="px-2 oy-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center"
                     >
                         <span
@@ -73,7 +101,8 @@
                                 />
                             </svg> </span
                         >Create Event
-                    </button>
+                    </a>
+                    {% endif %}
                 </div>
                 <div
                     class="buttonContainer flex items-center justify-center gap-2"
@@ -102,161 +131,7 @@
                 </div>
             </header>
 
-            <main>
-                <!-- stats grid -->
-                <div class="my-8 grid grid-cols-4 gap-6">
-                    <div class="totalTask bg-gray-800 rounded-xl p-6 shadow-sm">
-                        <h3 class="text-sm font-medium text-gray-300">
-                            TOTAL PARTICIPANTS
-                        </h3>
-                        <div
-                            class="taskDetails flex gap-2 items-start justify-between"
-                        >
-                            <div class="taskText">
-                                <p
-                                    class="text-3xl text-rose-500 font-bold my-1"
-                                >
-                                    {{tot_participants}}
-                                </p>
-                                <p class="text-blue-300 text-sm">
-                                    111 last month
-                                </p>
-                            </div>
-                            <div
-                                class="totalTaskIcon p-3 bg-gray-900 rounded-full"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="size-6 text-blue-300 hover:text-rose-500"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z"
-                                    />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="totalTask bg-gray-800 rounded-xl p-6 shadow-sm">
-                        <h3 class="text-sm font-medium text-gray-300">
-                            TOTAL EVENTS
-                        </h3>
-                        <div
-                            class="taskDetails flex gap-2 items-start justify-between"
-                        >
-                            <div class="taskText">
-                                <p
-                                    class="text-3xl text-rose-500 font-bold my-1"
-                                >
-                                    {{totalEvents}}
-                                </p>
-                                <p class="text-blue-300 text-sm">
-                                    111 last month
-                                </p>
-                            </div>
-                            <div
-                                class="totalTaskIcon p-3 bg-gray-900 rounded-full"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="size-6 text-blue-300 hover:text-rose-500"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
-                                    />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="totalTask bg-gray-800 rounded-xl p-6 shadow-sm">
-                        <h3 class="text-sm font-medium text-gray-300">
-                            ON GOING EVENTS
-                        </h3>
-                        <div
-                            class="taskDetails flex gap-2 items-start justify-between"
-                        >
-                            <div class="taskText">
-                                <p
-                                    class="text-3xl text-rose-500 font-bold my-1"
-                                >
-                                    {{todayEventsCount}}
-                                </p>
-                                <p class="text-blue-300 text-sm">
-                                    111 last month
-                                </p>
-                            </div>
-                            <div
-                                class="totalTaskIcon p-3 bg-grey-900 rounded-full"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="size-6 text-blue-300 hover:text-rose-500"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-                                    />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="totalTask bg-gray-800 rounded-xl p-6 shadow-sm">
-                        <h3 class="text-sm font-medium text-gray-200">
-                            UPCOMING EVENTS
-                        </h3>
-                        <div
-                            class="taskDetails flex gap-2 items-start justify-between"
-                        >
-                            <div class="taskText">
-                                <p
-                                    class="text-3xl text-rose-500 font-bold my-1"
-                                >
-                                    {{upcomingEventsCount}}
-                                </p>
-                                <p class="text-blue-300 text-sm">
-                                    111 last month
-                                </p>
-                            </div>
-                            <div
-                                class="totalTaskIcon p-3 bg-gray-900 rounded-full"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="size-6 text-blue-300 hover:text-rose-500"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                                    />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {% block event %}{% endblock event %}
-            </main>
+            <main>{% block event %}{% endblock event %}</main>
         </div>
     </body>
 </html>

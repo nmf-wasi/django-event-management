@@ -11,10 +11,30 @@
         <title>Create Event</title>
     </head>
     <body class="bg-gray-900">
-        <div class="w-1/2 mx-auto mt-5 text-gray-300">
-            <div><p>{{message}}</p></div>
+        <div class="flex justify-around mt-5 align-middle items-center">
+            <h1 class="text-2xl font-semibold text-blue-300">
+                Event <span class="text-rose-500"> Management</span>
+            </h1>
+            <a href="{% url "organizer_dashboard" %}">
+                <button
+                    class="rounded-lg bg-rose-500 hover:bg-blue-300 px-2 py-1 text-white shadow-sm"
+                >
+                    Back to Home
+                </button>
+            </a>
+        </div>
+        <div class="w-1/2 mx-auto mt-5 text-white p-2 rounded-lg">
+            <div>
+                {% if messages %} {% for message in messages %}
+                <div
+                    class="px-2 py-1 {% if message.tags == 'success' %} bg-green-300 {% endif %}"
+                >
+                    {{message}}
+                </div>
+                {% endfor %} {% endif %}
+            </div>
             <form method="POST">
-                {% csrf_token %} {{form.as_p}}
+                {% csrf_token %} {{eventForm.as_p}} {{eventDetailsForm.as_p}}
                 <button
                     type="submit"
                     class="text-white bg-rose-500 font-bold rounded-lg hover:bg-blue-300 p-2"

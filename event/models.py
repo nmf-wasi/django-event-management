@@ -50,5 +50,5 @@ class Event(models.Model):
 class EventDetails(models.Model):
     event = models.OneToOneField(Event, on_delete=models.CASCADE)
     notes = models.TextField(max_length=500, blank=True, null=True)
-    livestream_url = models.URLField(blank=True, null=True)
+    livestream_url = models.TextField(blank=True, null=True)
     speakers = models.TextField(blank=True, null=True)
