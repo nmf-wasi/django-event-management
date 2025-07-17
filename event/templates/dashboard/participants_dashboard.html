@@ -1,0 +1,33 @@
+{% extends "dashboard/dashboard.html" %} 
+{% block title %}
+<title>
+    Participant Dashboard
+</title>
+{% endblock title %} 
+{% block event %}
+<div class="eventList">
+    <h1 class="text-3xl text-white my-2">Events Going to:</h1>
+    <div class="eventList">
+        <div
+            class="totalTask bg-gray-800 rounded-xl p-6 shadow-sm w-3/4 mx-auto my-5"
+        >
+            <h3 class="text-2xl font-medium text-rose-500 my-3">Event NAME</h3>
+            <div class="taskDetails flex gap-2 items-start justify-between">
+                <div class="taskText">
+                    <p class="text-lg text-gray-300 font-bold my-2">
+                        EVENT Details
+                    </p>
+                    <button
+                        class="text-blue-300 text-sm rounded-xl bg-gray-900 px-2 py-1"
+                    >
+                        EVENT Category
+                    </button>
+                </div>
+                <div class="totalTaskIcon p-3 bg-gray-900 rounded-full my-2">
+                    <div class="text-rose-400">EVENT TIME</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock event %}
