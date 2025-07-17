@@ -141,8 +141,18 @@
         </div>
     </div>
 
+    <div>
+                {% if messages %} {% for message in messages %}
+                <div
+                    class="px-2 py-1 bg-rose-500 text-gray-800 text-lg {% if message.tags == 'success' %} bg-green-300 {% endif %}"
+                >
+                    {{message}}
+                </div>
+                {% endfor %} {% endif %}
+            </div>
     <!-- task item -->
 
+    
     {% for event in events %}
     <div class="p-3">
         <div class="grid grid-cols-4 items-center">
@@ -153,16 +163,21 @@
                 </div>
                 <div class="">
                     <div class="buttons">
-                        <button
+                        <a
+                        href="{% url "updateEvent" event.id %}"
                             class="px-2 py-1 bg-blue-300 hover:bg-rose-500 rounded-xl my-2"
                         >
                             Update
-                        </button>
-                        <button
-                            class="px-2 py-1 bg-blue-300 hover:bg-rose-500 rounded-xl my-2"
-                        >
-                            Delete
-                        </button>
+                        </a>
+                        <form action="{% url "deleteEvent" event.id %}" method="POST">
+                            {% csrf_token %}
+                            <button
+                                type="submit"
+                                class="px-2 py-1 bg-rose-500 hover:bg-blue-300 rounded-xl my-2"
+                            >
+                                Delete
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
