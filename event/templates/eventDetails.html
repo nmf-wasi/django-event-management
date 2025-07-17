@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -83,35 +84,11 @@
                     </button>
                 </div>
             </header>
-
-            <div class="flex justify-center ">
-                <form method="get" action="" class="mb-4 flex gap-2">
-                <input
-                    type="text"
-                    name="q"
-                    placeholder="Search events..."
-                    value="{{ request.GET.q }}"
-                    class="px-3 py-2 rounded-md bg-gray-800 w-3/4 text-white placeholder-gray-400"
-                />
-                <button type="submit" class="px-4 py-2 bg-blue-300 hover:bg-rose-500 text-white rounded-md">
-                    Search
-                </button>
-            </form>
-            </div>
-
-            {% if request.GET.q %}
-                <p class="text-blue-300 mb-4">
-                    Showing results for: <span class="font-semibold">"{{ request.GET.q }}"</span>
-                </p>
-            {% endif %}
-
-                {% if events %}
-                {% for event in events %}
-                <div class="eventList">
-                    <a href="{% url 'eventDetails' event.id  %}">
+            <div class="eventList">
                     <div
-                        class="totalTask bg-gray-800 rounded-xl p-6 shadow-sm w-3/4 mx-auto my-5"
+                        class="totalTask bg-gray-800 rounded-xl p-6 shadow-sm w-5/6 mx-auto my-5"
                     >
+                    <img src="https://cdn.pixabay.com/photo/2018/07/15/05/25/night-view-3538984_1280.jpg" alt="" class="h-72 rounded-lg">
                         <h3 class="text-2xl font-medium text-rose-500 my-3">
                             {{event.name}}
                         </h3>
@@ -125,23 +102,23 @@
                                 <button
                                     class="text-blue-300 text-sm rounded-xl bg-gray-900 px-2 py-1"
                                 >
-                                    {{event.category}}
+                                   Category: {{event.category}}
                                 </button>
+                                <button
+                                    class="text-blue-300 text-sm rounded-xl bg-gray-900 px-2 py-1"
+                                >
+                                   Location: {{event.location}}
+                                </button>
+                                
                             </div>
                             <div
                                 class="totalTaskIcon p-3 bg-gray-900 rounded-full my-2"
                             >
-                                <div class="text-rose-400">{{event.date}}</div>
+                                <div class="text-rose-400">{{event.date}}, {{event.time}}</div>
                             </div>
                         </div>
                     </div>
-                    </a>
                 </div>
-                {% endfor %}
-            {% else %}
-                <p class="text-gray-400 text-center mt-6">No events found.</p>
-            {% endif %}
-
         </div>
     </body>
 </html>

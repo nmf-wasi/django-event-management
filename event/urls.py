@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from event.views import organizer_dashboard, participants_dashboard,deleteEvent,updateEvent, createEvent, viewEvents
+from event.views import organizer_dashboard, participants_dashboard,deleteEvent,updateEvent, createEvent, event_dashboard, eventDetails
 
 
 urlpatterns = [
@@ -9,5 +9,6 @@ urlpatterns = [
     path("create-event/",createEvent, name='createEvent'),
     path("update-event/<int:id>/",updateEvent, name='updateEvent'),
     path("delete-event/<int:id>/",deleteEvent, name='deleteEvent'),
-    path("show-event/",viewEvents, name='viewEvents'),
+    path("show-event/",event_dashboard, name='showEvents'),
+    path("event-details/<int:id>",eventDetails, name='eventDetails'),
 ]

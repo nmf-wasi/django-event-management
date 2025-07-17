@@ -142,6 +142,7 @@
 
     {% for event in events %}
     <div class="p-3">
+        <a href="{% url 'eventDetails' event.id  %}">
         <div class="grid grid-cols-4 items-center">
             <div class="flex items-center gap-2">
                 <div class="flex items-center gap-2">
@@ -170,6 +171,7 @@
                 <span class="text-gray-400">{{event.location}}</span>
             </div>
         </div>
+        </a>
     </div>
 
     {% endfor %}

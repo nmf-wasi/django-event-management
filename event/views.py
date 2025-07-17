@@ -100,9 +100,9 @@ def organizer_dashboard(request):
     # request.GET is a dcitionary which holds infor related to the query
 
     baseEvents = (
-        Event.objects.select_related("category")  # ForeignKey: Category
-        .select_related("eventdetails")  # OneToOneField: EventDetails (reverse access)
-        .prefetch_related("participants")  # ManyToManyField: Participants
+        Event.objects.select_related("category")  
+        .select_related("eventdetails")  
+        .prefetch_related("participants")  
     )
 
     title = "Today"
@@ -177,4 +177,22 @@ def participants_dashboard(request):
 
 
 def event_dashboard(request):
-    pass
+    query = request.GET.get("q", "")
+
+    if query:
+        print('in querry')
+        events = Event.objects.filter(name__icontains=query)
+    else:
+        events=Event.objects.all()
+
+    context = {
+        "events": events,
+        "query": query,
+    }
+    return render(request, "showEvents.html", context)
+def eventDetails(request,id):
+    event = Event.objects.get(id=id)
+    context={
+        "event":event,
+    }
+    return render(request, "eventDetails.html", context)
