@@ -21,7 +21,7 @@ def createEvent(request):
     eventDetailsForm = EventDetailsForm()
 
     if request.method == "POST":
-        print("✅ POST:")
+        print("POST:")
         eventForm = EventForm(request.POST)
         eventDetailsForm = EventDetailsForm(request.POST)
 
@@ -51,7 +51,7 @@ def updateEvent(request, id):
         eventDetailsForm = EventDetailsForm(instance=event.eventdetails)
 
     if request.method == "POST":
-        print("✅ POST:")
+        print("POST:")
         eventForm = EventForm(request.POST, instance=event)
         eventDetailsForm = EventDetailsForm(request.POST, instance=event.eventdetails)
 

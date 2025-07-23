@@ -17,15 +17,18 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from django.shortcuts import redirect
+from event.views import organizer_dashboard  # import view directly
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', lambda request: redirect('organizer_dashboard')),
-    path('event/', include("event.urls")),
+
+    # Serve organizer_dashboard directly at '/'
+    path('', organizer_dashboard, name='organizer_dashboard'),
+
+    # Keep your event app URLs under '/event/'
+    path('event/', include('event.urls')),
 ]
 
-# ✅ Only add debug_toolbar URLs if in DEBUG mode
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]

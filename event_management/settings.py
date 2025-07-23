@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-o%78=7x4jkhky6)ubhf)gp63u^fhw6=bdrdfym=4w4+z_2^ynf
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS=['https://*.onrender.com', 'http://127.0.0.1:8000/']
+CSRF_TRUSTED_ORIGINS=['https://*.onrender.com','http://127.0.0.1:8000/']
 
 
 
@@ -107,7 +107,6 @@ WSGI_APPLICATION = "event_management.wsgi.application"
 
 DATABASES = {
     'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
         default='postgresql://event_management_hzy6_user:In0kg7TgHeS1Pzo9TACkP0zk8pnVWlHB@dpg-d1skaa7gi27c739h3in0-a.oregon-postgres.render.com/event_management_hzy6',
         conn_max_age=600
     )
