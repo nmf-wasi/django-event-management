@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen w-1/2 mx-auto items-center text-2xl mt-9 justify-center bg-gray-900">
+    <h1 class="text-white text-center text-3xl">Sign in to forge efficiency</h1>
+
+    <p class="my-2 mx-3 text-rose-500 text-xl">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="px-2 py-1 {% if message.tags == 'success' %} bg-green-500 {% endif %}">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </p>
+
+    <form method="POST" class="text-rose-500">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="text-white my-2 bg-rose-500 hover:bg-blue-300 px-3 py-2 rounded-lg">Sign in</button>
+    </form>
+</div>
+{% endblock content %}
+

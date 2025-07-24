@@ -7,34 +7,33 @@ class CustomTimeInput(forms.TimeInput):
 
 
 class StyleClassMixin:
-    default_classes = "border-1 rounded-lg text-blue-300 bg-gray-800 p-2 my-2 shadow-sm"
+    default_classes = "border border-gray-600 rounded-lg text-white bg-gray-800 p-2 my-2 shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rose-500"
 
     def applyStyles(self):
         for field_name, field in self.fields.items():
-            if isinstance(field.widget, forms.TextInput):
-                field.widget.attrs.update(
-                    {
-                        "class": f"{self.default_classes}",
-                    }
-                )
-            elif isinstance(field.widget, forms.Textarea):
-                field.widget.attrs.update(
-                    {
-                        "class": f"{self.default_classes} w-full ",                    }
-                )
-            elif isinstance(field.widget, forms.SelectDateWidget):
-                field.widget.attrs.update(
-                    {
-                        "type": "date",
-                        "class": f"{self.default_classes}",
-                    }
-                )
-            elif isinstance(field.widget, forms.Select):
-                field.widget.attrs.update(
-                    {
-                        "class": f"{self.default_classes}",
-                    }
-                )
+            widget = field.widget
+
+            if isinstance(widget, (forms.TextInput, forms.PasswordInput, forms.EmailInput)):
+                widget.attrs.update({
+                    "class": f"w-full {self.default_classes}",
+                })
+
+            elif isinstance(widget, forms.Textarea):
+                widget.attrs.update({
+                    "class": f"w-full h-28 resize-none {self.default_classes}",
+                })
+
+            elif isinstance(widget, forms.SelectDateWidget):
+                widget.attrs.update({
+                    "class": f"{self.default_classes}", 
+                })
+
+            elif isinstance(widget, forms.Select):
+                widget.attrs.update({
+                    "class": f"{self.default_classes}",
+                })
+
+
 
 
 class EventForm(StyleClassMixin, forms.ModelForm):
@@ -56,7 +55,7 @@ class EventForm(StyleClassMixin, forms.ModelForm):
             "date": forms.SelectDateWidget(attrs={}),
             "participants": forms.CheckboxSelectMultiple(
                 attrs={
-                    "class": "p-2 m-2 rounded-lg my-2 border-none",
+                    "class": "border border-gray-600 rounded-lg text-white bg-gray-800 p-2 my-2 shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rose-500",
                 }
             ),
             "time": CustomTimeInput(

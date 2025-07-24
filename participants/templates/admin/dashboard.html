@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                font-family: 'Nunito', sans-serif; /* This applies the font */
+            }
+        </style>
+
+        <title>Admin Dashboard</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+<body class='bg-gray-900'>
+    <header class="bg-gray-900 shadow-md">
+      <nav class="container mx-auto px-6 py-3">
+        <div class="flex justify-between items-center">
+          <a href="index.html" class="text-xl font-bold text-rose-500">Event<span class="text-blue-300">Master</span></a>
+          <div class="hidden md:flex space-x-4">
+            <a href="{% url "view_events" %}" class="px-2 py-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center">Events</a>
+            <a href="{% url "create_events" %}" class="px-2 py-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center">Add Events</a>
+            <a href="{% url "create_participant" %}" class="px-2 py-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center">Add Paticipants</a>
+            <a href="{% url "group_list" %}" class="px-2 py-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center">Groups</a>
+            <a href="{% url "create_group" %}" class="px-2 py-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center">Create Groups</a>
+
+          </div>
+          <div class="flex items-center">
+            <div class="relative">
+              <button id="user-menu-button" class="flex items-center focus:outline-none">
+                <img
+                  class="h-8 w-8 rounded-full object-cover"
+                  src="https://placekitten.com/100/100"
+                  alt="User avatar"/>
+              </button>
+              <div id="user-menu"
+                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden"
+              >
+                <a href="{% url "admin_Dashboard" %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >Dashboard</a>
+                <form method="post" action="{% url 'sign_out' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Logout
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div class="md:hidden ml-4">
+              <button id="menu-toggle"
+                class="text-rose-500 hover:text-blue-300 focus:outline-none">
+                <svg class="h-6 w-6"
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden mt-4">
+          <a href="{% url "group_list" %}" class="block my-2 py-2 text-rose-500 hover:text-blue-300"
+            >Groups</a
+          >
+          <a href="{% url "create_group" %}" class="block my-2 py-2 text-rose-500 hover:text-blue-300"
+            >Create Groups</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <main >
+      {% block content %}
+            {% include "admin/user_list.html" %}
+            {% comment %} #having include inside block ensures that as long as we dont add new data in the form, 
+             it will have the previous data {% endcomment %}
+      {% endblock content %}
+    </main>
+    <footer class="bg-gray-900 text-white py-12">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-wrap justify-between">
+                    <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                        <h3 class="text-lg font-semibold mb-4">EventMaster</h3>
+                        <p class="text-gray-400">
+                            Empowering teams with efficient Event management
+                            solutions.
+                        </p>
+                    </div>
+                    <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                        <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                        <ul class="text-gray-400 space-y-2">
+                            <li>
+                                <a href="#" class="hover:text-white">Home</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-white"
+                                    >Features</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-white">Pricing</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-white">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                        <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                        <ul class="text-gray-400 space-y-2">
+                            <li>
+                                <a href="#" class="hover:text-white">Twitter</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-white"
+                                    >LinkedIn</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-white"
+                                    >Facebook</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-full md:w-1/4">
+                        <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                        <form class="flex">
+                            <input
+                                type="email"
+                                placeholder="Your email"
+                                class="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded-l-md focus:outline-none"
+                                required
+                            />
+                            <button
+                                type="submit"
+                                class="px-4 py-2 hover:bg-rose-500 bg-blue-400 text-white justify-center items-center transition duration-300"
+                            >
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div
+                    class="border-t border-gray-700 mt-12 pt-8 text-sm text-center text-gray-400"
+                >
+                    &copy; 2025 EventMaster. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+        <script>
+      document
+        .getElementById("menu-toggle")
+        .addEventListener("click", function () {
+          document.getElementById("mobile-menu").classList.toggle("hidden");
+        });
+
+      document
+        .getElementById("user-menu-button")
+        .addEventListener("click", function () {
+          document.getElementById("user-menu").classList.toggle("hidden");
+        });
+
+      // Close the dropdown when clicking outside
+      window.addEventListener("click", function (e) {
+        if (!document.getElementById("user-menu-button").contains(e.target)) {
+          document.getElementById("user-menu").classList.add("hidden");
+        }
+      });
+    </script>
+
+</body>
+</html>

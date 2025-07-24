@@ -17,18 +17,18 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from event.views import organizer_dashboard  # import view directly
+from core.views import home
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    # Serve organizer_dashboard directly at '/'
-    path('', organizer_dashboard, name='organizer_dashboard'),
-
-    # Keep your event app URLs under '/event/'
     path('event/', include('event.urls')),
+    path('participants/', include('participants.urls')),
+    path("",home, name='home'),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]
+
+urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

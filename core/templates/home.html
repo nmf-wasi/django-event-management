@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gray-800 text-white py-32 md:py-40">
+    <div class="container mx-auto px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            Forge Efficiency in a Fragmented World
+        </h1>
+        <p class="text-xl mb-12">
+            EventMaster cuts through the digital static, delivering unparalleled
+            control over your projects and personnel. Command your workflow,
+            eliminate friction, and achieve absolute operational dominance.
+        </p>
+        <a
+            href="#"
+            class="px-8 py-4 my-2 hover:bg-rose-500 bg-blue-400 rounded-xl text-white gap-2 justify-center items-center transition duration-300"
+            >Get Started</a
+        >
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-24 md:py-32">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center text-rose-500 mb-16">
+            Tailored for Every Role
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 text-blue-300 gap-12">
+            <!-- Admin Card -->
+            <div class="bg-gray-800 rounded-lg shadow-md p-8">
+                <h3 class="text-2xl font-semibold mb-6">Admin</h3>
+                <ul class="list-disc list-inside text-gray-600 space-y-3">
+                    <li class="text-gray-400">
+                        Manage user roles and permissions
+                    </li>
+                    <li class="text-gray-400">
+                        Generate comprehensive reports
+                    </li>
+                    <li class="text-gray-400">
+                        Configure system-wide settings
+                    </li>
+                    <li class="text-gray-400">Monitor events</li>
+                </ul>
+            </div>
+            <!-- Organizer Card -->
+            <div class="bg-gray-800 rounded-lg shadow-md p-8">
+                <h3 class="text-2xl font-semibold mb-6">Organizer</h3>
+                <ul class="list-disc list-inside text-gray-600 space-y-3">
+                    <li class="text-gray-400">
+                        Create and assign events to Participants
+                    </li>
+                    <li class="text-gray-400">
+                        Track project progress in real-time
+                    </li>
+                    <li class="text-gray-400">Set deadlines and priorities</li>
+                    <li class="text-gray-400">
+                        Generate team performance reports
+                    </li>
+                </ul>
+            </div>
+            <!-- Participant Card -->
+            <div class="bg-gray-800 rounded-lg shadow-md p-8">
+                <h3 class="text-2xl font-semibold mb-6">Participant</h3>
+                <ul class="list-disc list-inside text-gray-600 space-y-3">
+                    <li class="text-gray-400">
+                        View and manage assigned Events
+                    </li>
+                    <li class="text-gray-400">Collaborate with team members</li>
+                    <li class="text-gray-400">
+                        Update Event status and progress
+                    </li>
+                    <li class="text-gray-400">Track personal event list</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="bg-gray-800 py-24 md:py-32">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold mb-6 text-rose-500">
+            Ready to Boost Your Team's Productivity?
+        </h2>
+        <p class="text-xl mb-12 text-blue-300">
+            Join thousands of organizations already using EventMaster
+        </p>
+        <a
+            href="#"
+            class="px-8 py-4 my-2 hover:bg-rose-500 bg-blue-400 rounded-xl text-white gap-2 justify-center items-center transition duration-300"
+            >Start Free Trial</a
+        >
+    </div>
+</section>
+{% endblock content %}

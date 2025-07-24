@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-900">
+
+    <div class="w-1/2 mx-auto bg-gray-900">
+    {% if forms.non_field_errors %}
+        {% for error in forms.non_field_errors %}
+            <p class="text-rose-500">
+                {{error}}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <p class="my-2 mx-3 text-rose-500 text-lg">
+                <label for="{{field.id_for_label}}">
+                    {{field.label}}
+                </label>
+                {{field}}
+
+                {% if field.errors  %}
+                    <ul>
+                        {% for error in field.errors  %}
+                            <li class="text-rose-500">{{error}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </p>
+        {% endfor %}
+        <button type='submit' class="px-4 py-2 bg-rose-500 rounded-xl hover:bg-blue-300 text-white">Sign Up!</button>
+    </form>
+</div>
+</div>
+{% endblock content %}

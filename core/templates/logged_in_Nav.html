@@ -1,0 +1,60 @@
+<header class="bg-gray-900 shadow-md">
+      <nav class="container mx-auto px-6 py-3">
+        <div class="flex justify-between items-center">
+          <a href="index.html" class="text-xl font-bold text-rose-500">Event<span class="text-blue-300">Master</span></a>
+          <div class="hidden md:flex space-x-4">
+            <a href="{% url "admin_Dashboard" %}"
+             class="px-2 py-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center">Dashboard</a>
+            <a href="#" class="px-2 py-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center">Events</a>
+            <a href="#" class="px-2 py-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center">Groups</a>
+            <a href="{% url "createEvent" %}"
+              class="px-2 py-1 bg-rose-500 hover:bg-blue-400 rounded-xl text-white flex gap-2 justify-center items-center"
+              >Create Event</a>
+          </div>
+          <div class="flex items-center">
+            <div class="relative">
+              <button id="user-menu-button" class="flex items-center focus:outline-none">
+                <img
+                  class="h-8 w-8 rounded-full object-cover"
+                  src="https://placekitten.com/100/100"
+                  alt="User avatar"/>
+              </button>
+              <div id="user-menu"
+                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden"
+              >
+                <a href="{% url "admin_Dashboard" %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >Dashboard</a>
+                <form method="post" action="{% url 'sign_out' %}">
+                  <a href="{% url "sign_out" %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    {% csrf_token %} Logout </a>
+                </form>
+              </div>
+            </div>
+            <div class="md:hidden ml-4">
+              <button id="menu-toggle"
+                class="text-rose-500 hover:text-blue-300 focus:outline-none">
+                <svg class="h-6 w-6"
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden mt-4">
+          <a href="{% url "admin_Dashboard" %}" class="block my-2 py-2 text-rose-500 hover:text-blue-300"
+            >Dashboard</a
+          >
+          <a href="#" class="block my-2 py-2 text-rose-500 hover:text-blue-300"
+            >Events</a
+          >
+          <a href="#" class="block my-2 py-2 text-rose-500 hover:text-blue-300"
+            >Groups</a
+          >
+          <a href="{% url "create_category" %}" class="block my-2 py-2 text-rose-500 hover:text-blue-300"
+            >Create Category</a
+          >
+        </div>
+      </nav>
+    </header>

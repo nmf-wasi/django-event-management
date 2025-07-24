@@ -147,7 +147,18 @@
             <div class="flex items-center gap-2">
                 <div class="flex items-center gap-2">
                     <div class="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <h1>{{event.name}}</h1>
+                    <div class="flex justify-center items-center gap-2">
+                        <h1>{{event.name}}</h1>
+                    <form action="{% url 'rsvp_event' event.id %}" method="POST">
+                            {% csrf_token %}
+                            <button
+                                type="submit"
+                                class="px-2 py-1 bg-rose-500 hover:bg-blue-300 rounded-xl my-2"
+                            >
+                                RSVP
+                            </button>
+                    </form>
+                    </div>
                 </div>
             </div>
             <div class="Priority">

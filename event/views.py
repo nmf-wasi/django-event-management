@@ -1,13 +1,23 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from event.forms import EventForm, EventDetailsForm
-from event.models import Participant, Event
+from event.models import Participant, Event, EventDetails, Category
 from datetime import date
 from django.db.models import Count, Q
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib.auth.decorators import login_required, user_passes_test
+def is_admin(user):
+    return user.groups.filter(name='Admin').exists()
+
+def is_organizer(user):
+    return user.groups.filter(name='Organizer').exists()
+
+def is_participant(user):
+    return user.groups.filter(name='Participant').exists()
 
 # Create your views here.
-
 
 def viewEvents(request):
     events = Event.objects.all()
@@ -15,6 +25,7 @@ def viewEvents(request):
 
 
 # in views.py
+@user_passes_test(is_organizer, login_url='noPermission')
 def createEvent(request):
     participants = Participant.objects.all()
     eventForm = EventForm()
@@ -42,7 +53,7 @@ def createEvent(request):
     context = {"eventForm": eventForm, "eventDetailsForm": eventDetailsForm}
     return render(request, "createEvent.html", context)
 
-
+@user_passes_test(is_organizer, login_url='noPermission')
 def updateEvent(request, id):
     event = Event.objects.get(id=id)
     eventForm = EventForm(instance=event)
@@ -72,7 +83,7 @@ def updateEvent(request, id):
     context = {"eventForm": eventForm, "eventDetailsForm": eventDetailsForm}
     return render(request, "createEvent.html", context)
 
-
+@user_passes_test(is_organizer, login_url='noPermission')
 def deleteEvent(request,id):
     if request.method == "POST":
         task = Event.objects.get(id=id)
@@ -83,7 +94,7 @@ def deleteEvent(request,id):
         messages.error(request, "Task was not deleted!")
         return redirect("organizer_dashboard")
 
-
+@user_passes_test(is_organizer, login_url='noPermission')
 def organizer_dashboard(request):
 
     tot_participants = Participant.objects.count()
@@ -190,9 +201,37 @@ def event_dashboard(request):
         "query": query,
     }
     return render(request, "showEvents.html", context)
+
 def eventDetails(request,id):
     event = Event.objects.get(id=id)
     context={
         "event":event,
     }
     return render(request, "eventDetails.html", context)
+
+
+
+def rsvp_event(request, event_id):
+    event = Event.objects.get(id=event_id)
+
+    try:
+        participant = request.user.participant
+    except Participant.DoesNotExist:
+        messages.error(request, "Your participant profile could not be found.")
+        return redirect('participants_dashboard')
+
+    if event.rsvp.filter(id=participant.id).exists():
+        messages.warning(request, "You have already RSVP'd to this event.")
+    else:
+        event.rsvp.add(participant)
+        messages.success(request, "You have successfully RSVPed to the event.")
+
+        send_mail(
+            subject="RSVP Confirmation",
+            message=f"Hi {participant.name},\n\nYou have successfully RSVPed to the event: {event.name}.",
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[participant.email], 
+            fail_silently=True,
+        )
+
+    return redirect('participants_dashboard')

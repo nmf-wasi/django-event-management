@@ -44,7 +44,7 @@ class Event(models.Model):
         blank=True,
     )
     participants = models.ManyToManyField(Participant, related_name="events")
-
+    rsvp = models.ManyToManyField(Participant, related_name='rsvped_events', blank=True)
 
 
 class EventDetails(models.Model):

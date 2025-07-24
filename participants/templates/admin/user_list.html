@@ -1,0 +1,81 @@
+<div class="container mx-auto p-6">
+    <div class="overflow-x-auto">
+        <table class="min-w-full shadow-md rounded-lg overflow-hidden">
+            <thead class="bg-gray-800">
+                <tr>
+                    <th
+                        class="px-4 py-3 text-left text-xs font-medium text-gray-100 uppercase "
+                    >
+                        Number
+                    </th>
+                    <th
+                        class="px-4 py-2 text-left text-xs whitespace-nowrap max-w-xs truncate font-medium text-gray-100 uppercase"
+                    >
+                        Username
+                    </th>
+                    <th
+                        class="px-4 py-3 text-left text-xs font-medium text-gray-100 uppercase "
+                    >
+                        Email
+                    </th>
+                    <th
+                        class="px-4 py-3 text-left text-xs font-medium text-gray-100 uppercase "
+                    >
+                        User ID
+                    </th>
+                    <th
+                        class="px-4 py-3 text-left text-xs font-medium text-gray-100 uppercase "
+                    >
+                        Current Role
+                    </th>
+                    <th
+                        class="px-4 py-3 text-left text-xs font-medium text-gray-100 uppercase "
+                    >
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 text-white bg-gray-900">
+                <!-- Example static data -->
+                {% for user in users %}
+                <tr class="hover:bg-gray-800">
+                    <td class="px-4 py-2 whitespace-nowrap">
+                        {{ forloop.counter }}
+                    </td>
+                    <td class="px-4 py-2 whitespace-nowrap">
+                        {{ user.first_name }} {{ user.last_name }}
+                    </td>
+                    <td class="px-4 py-2 whitespace-nowrap">
+                        {{ user.email }}
+                    </td>
+                    <td class="px-4 py-2 whitespace-nowrap">{{ user.id }}</td>
+                    <td class="px-4 py-2 whitespace-nowrap">
+                        {{ user.groups.first.name|default:"No Group Assigned" }}
+                    </td>
+                    <td class="px-4 py-2 whitespace-nowrap flex gap-2">
+                        <a
+                            href="{% url 'assign_Role' user.id %}"
+                            class="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded"
+                        >
+                            Change Role
+                        </a>
+                        <form
+                            method="POST"
+                            action="{% url 'delete_user' user.id %}"
+                            onsubmit="return confirm('Are you sure you want to delete this user?');"
+                        >
+                            {% csrf_token %}
+                            <button
+                                type="submit"
+                                class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded"
+                            >
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

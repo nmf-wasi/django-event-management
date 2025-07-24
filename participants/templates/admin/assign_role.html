@@ -1,0 +1,24 @@
+{% extends "admin/dashboard.html" %}
+
+{% block content %}
+    <ul>
+        {% for message in messages %}
+        <li class"bg-green-300 px-3 py-2">
+            {{message}}
+        </li>
+        {% endfor %}
+    </ul>
+ 
+    <div class="my-8 w-1/2 mx-auto">
+        <form method="POST">
+            {% csrf_token %}
+            <label for="{{ form.role.id_for_label }}" class="block text-white font-semibold mb-2">Role</label>
+            {{ form.role }}
+            <button class="my-2 px-2 py-1 text-white bg-rose-500 hover:bg-blue-300 rounded-lg" type="submit">Submit</button>
+        </form>
+
+    </div>
+
+{% endblock content %}
+
+
