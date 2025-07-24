@@ -37,7 +37,7 @@
             </div>
             <div class="flex gap-1">
                 <a
-                    href="#"
+                    href="{% url "sign_in" %}"
                     class="hidden md:block bg-blue-300 text-white px-4 py-2 rounded-md hover:bg-rose-500 transition duration-300"
                     >Sign In</a
                 >
@@ -61,7 +61,7 @@
             <a href="#" class="block py-2 text-gray-600 hover:text-gray-800"
                 >Contact</a
             >
-            <a href="#" class="block py-2 text-gray-600 hover:text-gray-800"
+            <a href="{% url "sign_in" %}" class="block py-2 text-gray-600 hover:text-gray-800"
                 >Sign In</a
             >
             <a href="{% url "sign_up" %}" class="block py-2 text-gray-600 hover:text-gray-800"
